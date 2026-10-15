@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المتكامل - مواد البناء</title>
+    <!-- استيراد الخطوط وأيقونات FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --primary-hover: #004085;
+            --bg-light: #f8fafc;
+            --card-border: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+        }
+
+        /* --- Header --- */
+        header {
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .search-box {
+            position: relative;
+            width: 280px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 35px 8px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            border: 1px solid var(--card-border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* --- Category Banner (مواد البناء) --- */
+        .category-banner {
+            background: linear-gradient(90deg, rgba(2, 0, 36, 0.6) 0%, rgba(0, 86, 179, 0.4) 100%), 
+                        url('https://images.unsplash.com/photo-1541888946425-d0fbb18f1349?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .banner-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 5px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .banner-title h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 5px;
+        }
+
+        .banner-title p {
+            font-size: 1rem;
+            color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        /* --- Main Container Layout --- */
+        .main-container {
+            max-width: 1300px;
+            margin: 25px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* --- Sidebar Filter --- */
+        .sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid var(--card-border);
+        }
+
+        .filter-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+        }
+
+        .category-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .category-list li a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .category-list li a:hover, .category-list li.active a {
+            background: #eff6ff;
+            color: var(--primary-color);
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #475569;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            background: #f8fafc;
+            font-size: 0.85rem;
+        }
+
+        /* --- Content Area --- */
+        .content-area {
+            flex-grow: 1;
+        }
+
+        /* Quick Sub-categories Pills Bar */
+        .sub-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .sub-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pill-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: white;
+            border: 1px solid var(--card-border);
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pill-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .sort-select {
+            background: white;
+            border: 1px solid var(--card-border);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #f1f5f9;
+            color: var(--primary-color);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin: 20px 0 10px;
+        }
+
+        .product-info h4 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .product-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-order {
+            flex-grow: 1;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-order:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-cart-icon {
+            background: #f1f5f9;
+            color: var(--primary-color);
+            border: 1px solid var(--card-border);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* زر الواتساب العائم */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #25d366;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            text-decoration: none;
+        }
+
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .nav-links, .search-box {
+                display: none;
+            }
+        }
+
+        /* ==========================================
+   تنسيقات التجاوب مع شاشات الهواتف والأجهزة اللوحية
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* تعديل الهيدر والشريط العلوي */
+    .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 15px;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    /* إخفاء روابط التنقل العادية في الهواتف لجعل الشاشة نظيفة */
+    .nav-links {
+        display: none; 
+    }
+
+    /* توسيع حقل البحث ليأخذ عرض الشاشة بالكامل في السطر الثاني */
+    .search-box, .search-bar {
+        order: 3;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .search-box input, .search-bar input {
+        width: 100%;
+    }
+
+    /* البانر العلوي */
+    .category-banner, .page-banner {
+        padding: 25px 15px;
+        text-align: center;
+    }
+
+    .banner-content {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .banner-title h1, .page-banner h1 {
+        font-size: 1.6rem;
+    }
+
+    .banner-title p, .page-banner p {
+        font-size: 0.85rem;
+    }
+
+    /* التخطيط الرئيسي (جعل القائمة الجانبية فوق المنتجات) */
+    .main-container {
+        flex-direction: column;
+        padding: 0 12px;
+        margin: 15px auto;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    /* تحويل بطاقات الأقسام والمنتجات إلى شبكة من عمودين أو عمود واحد */
+    .products-grid, .categories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    .product-card, .category-card {
+        padding: 10px;
+    }
+
+    .product-img {
+        height: 110px;
+    }
+
+    .product-info h4 {
+        font-size: 0.85rem;
+    }
+
+    .product-info p {
+        font-size: 0.7rem;
+        margin-bottom: 8px;
+    }
+
+    .btn-order {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+
+    .btn-cart-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* شريط الأقسام السريعة (Sub-pills) */
+    .sub-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sub-pills {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 8px;
+        justify-content: flex-start;
+    }
+
+    .pill-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+    }
+
+    .sort-select {
+        width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-building"></i> المتكامل
+            </div>
+            <ul class="nav-links">
+                <li><a href="mut.html">الرئيسية</a></li>
+                <li><a href="#" class="active">المنتجات</a></li>
+                <li><a href="about.html">من نحن</a></li>
+                <li><a href="#">تواصل معنا</a></li>
+            </ul>
+            <div class="search-box">
+                <input type="text" placeholder="ابحث عن مواد البناء...">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Banner (مواد البناء) -->
+    <section class="category-banner">
+        <div class="banner-content">
+            <div class="banner-title">
+                <h1>مواد البناء</h1>
+                <p>كل احتياجات مشروعك من مواد البناء في مكان واحد</p>
+            </div>
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house"></i> الرئيسية / المنتجات / مواد البناء
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        
+        <!-- Sidebar Filter -->
+        <aside class="sidebar">
+            <div class="filter-card">
+                <h3><i class="fa-solid fa-layer-group"></i> الأقسام</h3>
+                <ul class="category-list">
+                    <li class="active"><a href="#">الكل <i class="fa-solid fa-angle-left"></i></a></li>
+                    <li><a href="#">أسمنت <i class="fa-solid fa-angle-left"></i></a></li>
+                    <li><a href="#">حديد تسليح <i class="fa-solid fa-angle-left"></i></a></li>
+                    <li><a href="#">طوب وبلوك <i class="fa-solid fa-angle-left"></i></a></li>
+                    <li><a href="#">رمل وحصى <i class="fa-solid fa-angle-left"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="filter-card">
+                <h3><i class="fa-solid fa-filter"></i> تصفية المنتجات</h3>
+                
+                <div class="filter-group">
+                    <label>النوع</label>
+                    <select>
+                        <option>الكل</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>المقاس</label>
+                    <select>
+                        <option>الكل</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>التوفر</label>
+                    <select>
+                        <option>الكل</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            
+            <!-- Quick Sub-categories Bar -->
+            <div class="sub-nav">
+                <div class="sub-pills">
+                    <button class="pill-btn active"><i class="fa-solid fa-border-all"></i> الكل</button>
+                    <button class="pill-btn"><i class="fa-solid fa-box"></i> أسمنت</button>
+                    <button class="pill-btn"><i class="fa-solid fa-bars"></i> حديد تسليح</button>
+                    <button class="pill-btn"><i class="fa-solid fa-cube"></i> طوب وبلوك</button>
+                    <button class="pill-btn"><i class="fa-solid fa-mountain"></i> رمل وحصى</button>
+                </div>
+                <select class="sort-select">
+                    <option>الترتيب حسب</option>
+                </select>
+            </div>
+
+            <!-- Product Cards Grid (مواد البناء)[cite: 6] -->
+            <div class="products-grid">
+                
+                <!-- منتج 1: أسمنت بورتلاندي -->
+                <div class="product-card">
+                    <span class="badge-tag"><i class="fa-solid fa-box"></i> أسمنت</span>
+                    <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=200&q=80" class="product-img" alt="أسمنت بورتلاندي">
+                    <div class="product-info">
+                        <h4>أسمنت بورتلاندي</h4>
+                        <p>أسمنت بورتلاندي عالي الجودة لجميع أعمال البناء والإنشاءات</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-order">اطلب السعر</button>
+                        <button class="btn-cart-icon"><i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+
+                <!-- منتج 2: حديد تسليح -->
+                <div class="product-card">
+                    <span class="badge-tag"><i class="fa-solid fa-bars"></i> حديد تسليح</span>
+                    <img src="https://images.unsplash.com/photo-1585129819544-4c554d4e09e9?auto=format&fit=crop&w=200&q=80" class="product-img" alt="حديد تسليح">
+                    <div class="product-info">
+                        <h4>حديد تسليح</h4>
+                        <p>حديد تسليح عالي الجودة لمشاريع البناء والإنشاءات الخرسانية</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-order">اطلب السعر</button>
+                        <button class="btn-cart-icon"><i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+
+                <!-- منتج 3: بلوك أسمنتي -->
+                <div class="product-card">
+                    <span class="badge-tag"><i class="fa-solid fa-cube"></i> طوب وبلوك</span>
+                    <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=200&q=80" class="product-img" alt="بلوك أسمنتي">
+                    <div class="product-info">
+                        <h4>بلوك أسمنتي</h4>
+                        <p>بلوك أسمنتي قوي ومتين لمختلف أعمال البناء والجدران</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-order">اطلب السعر</button>
+                        <button class="btn-cart-icon"><i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+
+                <!-- منتج 4: طوب أحمر -->
+                <div class="product-card">
+                    <span class="badge-tag"><i class="fa-solid fa-cube"></i> طوب وبلوك</span>
+                    <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=200&q=80" class="product-img" alt="طوب أحمر">
+                    <div class="product-info">
+                        <h4>طوب أحمر</h4>
+                        <p>طوب أحمر عالي الجودة للبناء والجدران الإنشائية</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-order">اطلب السعر</button>
+                        <button class="btn-cart-icon"><i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+
+                <!-- منتج 5: رمل بناء -->
+                <div class="product-card">
+                    <span class="badge-tag"><i class="fa-solid fa-mountain"></i> رمل وحصى</span>
+                    <img src="https://images.unsplash.com/photo-1578590398517-083c5cbd8682?auto=format&fit=crop&w=200&q=80" class="product-img" alt="رمل بناء">
+                    <div class="product-info">
+                        <h4>رمل بناء</h4>
+                        <p>رمل ناعم ومغسول مناسب لكافة أعمال البناء والخرسانة</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-order">اطلب السعر</button>
+                        <button class="btn-cart-icon"><i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+
+                <!-- منتج 6: حصى وركام -->
+                <div class="product-card">
+                    <span class="badge-tag"><i class="fa-solid fa-mountain"></i> رمل وحصى</span>
+                    <img src="https://images.unsplash.com/photo-1578590398517-083c5cbd8682?auto=format&fit=crop&w=200&q=80" class="product-img" alt="حصى وركام">
+                    <div class="product-info">
+                        <h4>حصى وركام</h4>
+                        <p>حصى وركام بأحجام مختلفة لمشاريع البناء والخرسانة</p>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-order">اطلب السعر</button>
+                        <button class="btn-cart-icon"><i class="fa-solid fa-cart-shopping"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- زر الواتساب العائم -->
+    <a href="https://wa.me/" target="_blank" class="whatsapp-float">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+</body>

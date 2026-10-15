@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المتكامل - تواصل معنا</title>
+    <!-- استيراد الخطوط وأيقونات FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --primary-hover: #004085;
+            --bg-light: #f8fafc;
+            --card-border: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--text-dark);
+        }
+
+        /* --- Header --- */
+        header {
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            border: 1px solid var(--card-border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* --- Page Banner --- */
+        .page-banner {
+            background: linear-gradient(90deg, rgba(0, 86, 179, 0.85) 0%, rgba(2, 0, 36, 0.75) 100%), 
+                        url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .page-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .page-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* --- Info Cards Column --- */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .info-card .icon-box {
+            width: 55px;
+            height: 55px;
+            background: #eff6ff;
+            color: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .info-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .social-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            text-align: center;
+        }
+
+        .social-box h4 {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            background: #f1f5f9;
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* --- Contact Form Column --- */
+        .contact-form-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .contact-form-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .contact-form-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            font-size: 0.95rem;
+            background: #f8fafc;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            background: #fff;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+        }
+
+        /* زر الواتساب العائم */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #25d366;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            text-decoration: none;
+        }
+
+        @media (max-width: 900px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* ==========================================
+   تنسيقات التجاوب مع شاشات الهواتف والأجهزة اللوحية
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* تعديل الهيدر والشريط العلوي */
+    .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 15px;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    /* إخفاء روابط التنقل العادية في الهواتف لجعل الشاشة نظيفة */
+    .nav-links {
+        display: none; 
+    }
+
+    /* توسيع حقل البحث ليأخذ عرض الشاشة بالكامل في السطر الثاني */
+    .search-box, .search-bar {
+        order: 3;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .search-box input, .search-bar input {
+        width: 100%;
+    }
+
+    /* البانر العلوي */
+    .category-banner, .page-banner {
+        padding: 25px 15px;
+        text-align: center;
+    }
+
+    .banner-content {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .banner-title h1, .page-banner h1 {
+        font-size: 1.6rem;
+    }
+
+    .banner-title p, .page-banner p {
+        font-size: 0.85rem;
+    }
+
+    /* التخطيط الرئيسي (جعل القائمة الجانبية فوق المنتجات) */
+    .main-container {
+        flex-direction: column;
+        padding: 0 12px;
+        margin: 15px auto;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    /* تحويل بطاقات الأقسام والمنتجات إلى شبكة من عمودين أو عمود واحد */
+    .products-grid, .categories-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    .product-card, .category-card {
+        padding: 10px;
+    }
+
+    .product-img {
+        height: 110px;
+    }
+
+    .product-info h4 {
+        font-size: 0.85rem;
+    }
+
+    .product-info p {
+        font-size: 0.7rem;
+        margin-bottom: 8px;
+    }
+
+    .btn-order {
+        font-size: 0.75rem;
+        padding: 6px;
+    }
+
+    .btn-cart-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* شريط الأقسام السريعة (Sub-pills) */
+    .sub-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sub-pills {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 8px;
+        justify-content: flex-start;
+    }
+
+    .pill-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+    }
+
+    .sort-select {
+        width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-building"></i> المتكامل
+            </div>
+            <ul class="nav-links">
+                <li><a href="mut.html">الرئيسية</a></li>
+                <li><a href="mut 3 b.html">مواد البناء</a></li>
+                <li><a href="Mut2.html">الدهانات</a></li>
+                <li><a href="mu4.html">السباكة</a></li>
+                <li><a href="mu5.html">الكهرباء</a></li>
+                <li><a href="about.html">من نحن</a></li>
+                <li><a href="contact.html" class="active">تواصل معنا</a></li>
+            </ul>
+            <div class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <h1>تواصل معنا</h1>
+        <p>نحن هنا لمساعدتك والإجابة على كافة استفساراتك وعروض الأسعار</p>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="contact-wrapper">
+            
+            <!-- معلومات الاتصال الجانبية -->
+            <div class="contact-info">
+                
+                <div class="info-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <h4>موقعنا الرئيسي</h4>
+                        <p>السودان - دنقلا / الخرطوم<br>منطقة السوق الرئيسي</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div>
+                        <h4>أرقام الهاتف والواتساب</h4>
+                        <p>249900000000+<br>249120000000+</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>البريد الإلكتروني</h4>
+                        <p>info@almutakamel.com<br>sales@almutakamel.com</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4>ساعات العمل</h4>
+                        <p>السبت - الخميس: 8:00 صباحاً - 6:00 مساءً<br>الجمعة: عطلة رسمية</p>
+                    </div>
+                </div>
+
+                <div class="social-box">
+                    <h4>تابعنا على شبكات التواصل</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- نموذج تواصل معنا -->
+            <div class="contact-form-card">
+                <h3>أرسل لنا رسالة</h3>
+                <p>قم بتعبئة النموذج التالي وسيتم التواصل معك من قبل فريق المبيعات في أقرب وقت.</p>
+
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>الاسم بالكامل</label>
+                            <input type="text" placeholder="أدخل اسمك الكريم" required>
+                        </div>
+                        <div class="form-group">
+                            <label>رقم الهاتف / الواتساب</label>
+                            <input type="tel" placeholder="0912345678" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>البريد الإلكتروني (اختياري)</label>
+                        <input type="email" placeholder="example@domain.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>نوع الاستفسار / القسم المطلوب</label>
+                        <select>
+                            <option>طلب عرض سعر جديد</option>
+                            <option>استفسار عن مواد البناء</option>
+                            <option>استفسار عن الدهانات</option>
+                            <option>استفسار عن السباكة والكهرباء</option>
+                            <option>متابعة طلب سابق</option>
+                            <option>أخرى</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>نص الرسالة</label>
+                        <textarea rows="5" placeholder="اكتب تفاصيل استفسارك أو المنتجات والكميات المطلوبة هنا..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fa-solid fa-paper-plane"></i> إرسال الرسالة
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- زر الواتساب العائم -->
+    <a href="https://wa.me/" target="_blank" class="whatsapp-float">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- ربط ملف الجافاسكريبت -->
+    <script src="script.js"></script>
+</body>
+</html>
